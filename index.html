@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>ecodibba Calculator</title>
+  <meta name="ecodibba rate calculator" content="Description of the webpage">
+  <link rel="icon" href="head.png" type="image/icon type">
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <style>
+    #terms:hover {
+      cursor: pointer;
+      color: rgb(1, 57, 1);
+      scale: 1.1;
+      text-decoration: underline;
+    }
+
+    #T&C {
+      transition-duration: 5s;
+
+    }
+
+    #accept:hover {
+      cursor: pointer;
+      scale: 1.1;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="https://ecodibba.com/" class="brand-logo"><img src="logo.png" width="270px" style="margin-top: 3%;"></a>
+      <button class="navbar-toggler" width="270px">&#9776;</button>
+      <div class="navbar-links">
+        <a class="navlinks" href="https://ecodibba.com/">Home</a>
+        <a class="navlinks" href="http://rfq.ecodibba.com">RFQ form</a>
+        <a class="navlinks" href="#" style="display: none;">Digital Card</a>
+        <a class="navlinks" href="http://calculator.ecodibba.com" style="display: none;">Cost Calculator</a>
+        <a class="navlinks"
+          href="https://docs.google.com/forms/d/1I9bXzRlXC0JHDg_0_BQ37AEn4qftzAa18hVODa0el44/edit">Calculator
+          Feedback</a>
+        <select name="lang" id="lang">
+          <option id="en" value="en">English</option>
+          <option id="hi" value="hi">हिंदी</option>
+        </select>
+      </div>
+    </div>
+
+  </nav>
+  <div class="side-menu">
+    <div class="container" style="display: block;">
+      <a class="sidelinks" href="https://ecodibba.com/">Home</a>
+      <a class="sidelinks" href="http://rfq.ecodibba.com">RFQ form</a>
+      <a class="sidelinks" href="#" style="display: none;">Digital Card</a>
+      <a class="sidelinks" href="http://calculator.ecodibba.com" style="display: none;">Cost Calculator</a>
+      <a class="sidelinks"
+        href="https://docs.google.com/forms/d/1I9bXzRlXC0JHDg_0_BQ37AEn4qftzAa18hVODa0el44/edit">Calculator
+        Feedback</a>
+        <select name="lang" id="lang2">
+          <option id="en" value="en">English</option>
+          <option id="hi" value="hi">हिंदी</option>
+        </select>
+      
+    </div>
+  </div>
+
+
+  <div id="google_translate_element" style="position:absolute;bottom:83%;right:0.5%;"></div>
+
+  <div class="content">
+
+    <div class="wrapper" style="padding-bottom: 0.1%; margin-bottom:1%;">
+
+      <div class="form_wrap">
+        <form id="form" method="post" action="http://127.0.0.1:5501/index.html">
+          <div class="form_1 data_info">
+            <h2 id="heading">corrugated box cost Calculator</h2>
+
+            <div class="form_container">
+
+              <div class="form-row" style="display:flex;">
+                <div style="width:33%;">
+                  <label id="valid">Quotation Validity</label>
+                  <select id="days" class="form-input" required style="flex: 1;" name="days">
+                    <option class="vo" value="" selected disabled>Validity in days</option>
+                    <option class="vo" value="1">1 Day</option>
+                    <option class="vo" value="2">2 Days</option>
+                    <option class="vo" value="3">3 Days</option>
+                    <option class="vo" value="4">4 Days</option>
+                    <option class="vo" value="5">5 Days</option>
+                    <option class="vo" value="6">6 Days</option>
+                    <option class="vo" value="7">7 Days</option>
+                    <option class="vo" value="8">8 Days</option>
+                    <option class="vo" value="9">9 Days</option>
+                    <option class="vo" value="10">10 Days</option>
+                    <option class="vo" value="15">15 Days</option>
+                    <option class="vo" value="30">30 Days</option>
+                  </select>
+                </div>
+                <div style="width:33%;">
+                  <label id="bxcolor">Box Color</label>
+                  <select id="bx_color_type" class="form-input" required style="flex: 1;" onchange="Costing()"
+                    name="bx_color_type">
+                    <option class="bxco" value="Brown" selected>Brown</option>
+                    <option class="bxco" value="White">White</option>
+                  </select>
+                </div>
+                <div style="width:33%;">
+                  <label id="boxtype">Box Type</label>
+                  <select id="box_type" class="form-input" required style="flex: 1;" onchange="Costing()"
+                    name="box_type">
+                    <option class="bxto" value="peti" selected>Peti Box</option>
+                    <option class="bxto" value="tuck">Tuck in Box</option>
+                    <!-- <option value="">Pizza Type </option> -->
+                  </select>
+                </div>
+              </div>
+
+
+
+
+
+            </div>
+
+
+          </div>
+
+
+
+          <div class="form-row" style="display:flex;">
+            <div style="width: 33%;">
+              <label id="L">Length</label>
+              <input type="number" id="length" class="form-input" placeholder="0 (inch)" style="flex: 1;" name="length"
+                value="">
+            </div>
+            <div style="width: 33%;">
+              <label id="W">Width</label>
+              <input type="number" id="width" class="form-input" placeholder="0 (inch)" style="flex: 1;" name="width"
+                value="">
+
+            </div>
+            <div style="width: 33%;">
+              <label id="H">Height</label>
+              <input type="number" id="height" class="form-input" placeholder="0 (inch)" style="flex: 1;" name="height"
+                value="">
+            </div>
+          </div>
+          <input type="text" id="ID" class="form-input" placeholder="Unique_Id"
+            style="flex: 1; margin-right: 5px; display:none;" name="ID" value="">
+
+
+
+
+
+
+          <div class="form-row" style="display: flex;">
+
+            <div style="width: 50%;">
+              <label id="LPLY">PLY</label>
+              <select id="PLY" class="form-input" name="PLY" style="flex: 1;">
+                <option class="plyo" value="Null" selected disabled>Select Ply</option>
+                <option class="plyo" value="3">3 ply box-Single-wall</option>
+
+                <option class="plyo" value="5">5 ply box - Double-wall</option>
+
+                <option class="plyo" value="7
+">7 ply box - Triple-wall</option>
+
+                <option class="plyo" value="9">9 ply box - Heavy-duty</option>
+              </select>
+            </div>
+            <div style="width: 50%;">
+              <label id="LPS">Print Specification</label>
+              <select id="printed" class="form-input" style="flex: 1; margin-left : 5px;" name="printed">
+                <option class="pso" value="" selected disabled>Printed? Select Option</option>
+                <option class="pso" value="No">No</option>
+                <option class="pso" value="one">Single Color</option>
+                <option class="pso" value="Two">Two Color</option>
+                <option class="pso" value="Multi / Four">Multi / Four Color</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row" style="display: flex;">
+            <div style="width: 33%;">
+              <label class="lGSM">1st GSM liner</label>
+              <input type="number" id="UGSM" class="form-input gsmfield" placeholder="GSM"
+                style="flex: 1; margin-right: 2px;" name="UGSM" value="">
+            </div>
+            <div style="width: 33%;">
+              <label class="lGSM">2nd GSM flute</label>
+              <input type="number" id="FGSM" class="form-input gsmfield" value="" placeholder="GSM"
+                style="flex: 1; margin-right: 2px;" name="FGSM">
+            </div>
+            <div style="width: 33%;">
+              <label class="lGSM">3rd GSM liner</label>
+              <input type="number" id="LGSM" class="form-input gsmfield" placeholder="GSM" style="flex: 1;" name="LGSM"
+                value="">
+            </div>
+          </div>
+
+          <div class="form-row" style="display: flex;">
+            <div id="gsm1" style="width: 33%;display:none;">
+              <label class="lGSM">4th GSM flute</label>
+              <input type="number" id="GSM4" class="form-input gsmfield" placeholder="GSM"
+                style="flex: 1; margin-right: 2px;" name="GSM4" value="">
+            </div>
+            <div id="gsm2" style="width: 33%;display:none;">
+              <label class="lGSM">5th GSM liner</label>
+              <input type="number" id="GSM5" class="form-input gsmfield" value="" placeholder="GSM"
+                style="flex: 1; margin-right: 2px;" name="GSM5">
+            </div>
+            <div id="gsm3" style="width: 33%;display:none;">
+              <label class="lGSM">6th GSM flute</label>
+              <input type="number" id="GSM6" class="form-input gsmfield" placeholder="GSM" style="flex: 1;" name="GSM6"
+                value="">
+            </div>
+          </div>
+
+          <div class="form-row" style="display: flex;">
+            <div id="gsm4" style="width: 33%;display:none;">
+              <label class="lGSM"> 7th GSM liner</label>
+              <input type="number" id="GSM7" class="form-input gsmfield" placeholder="GSM"
+                style="flex: 1; margin-right: 2px;" name="GSM7" value="">
+            </div>
+            <div id="gsm5" style="width: 33%;display:none;">
+              <label class="lGSM">8th GSM flute</label>
+              <input type="number" id="GSM8" class="form-input gsmfield" value="" placeholder="GSM"
+                style="flex: 1; margin-right: 2px;" name="GSM8">
+            </div>
+            <div id="gsm6" style="width: 33%;display:none;">
+              <label class="lGSM">9th GSM liner</label>
+              <input type="number" id="GSM9" class="form-input gsmfield" placeholder="GSM" style="flex: 1;" name="GSM9"
+                value="">
+            </div>
+          </div>
+
+          <div id="prt_ques" style="display: none; ">
+
+            <div class="form-row">
+              <div id="gsm1" style="width:49.8%">
+                <label class="psL">Fixed Charge (INR)</label>
+                <input type="number" id="fixed_charge" class="form-input psi" value="" placeholder="Fixed charge"
+                  style="flex: 1; " name="fixed_charge">
+              </div>
+              <div id="gsm1" style="width:49.8%">
+                <label class="psL">Die Cost (INR)</label>
+                <input type="number" id="die_cost" class="form-input psi" value="" placeholder="Box die cost"
+                  style="flex: 1;" name="die_cost">
+              </div>
+
+            </div>
+            <div class="form-row">
+              <div style="width:49.8%;">
+                <label class="psL">Printing Cost/Box</label>
+                <input type="number" id="printpbox" class="form-input psi" value="" placeholder="Printing Cost/Box"
+                  style="flex: 1; margin-right: 5px;" name="printpbox">
+              </div>
+              <div style="width:49.8%;">
+                <label class="psL">Overall Printing Cost</label>
+
+                <input type="number" id="printoverall" class="form-input psi" value="" placeholder="Overall Print Cost"
+                  style="flex: 1; margin-right: 5px;" name="printoverall">
+              </div>
+
+            </div>
+
+          </div>
+          <label id="LQ">Quantity</label>
+          <input type="number" id="quantity" class="form-input" placeholder="Quantity Needed" style="flex: 1;"
+            name="quantity" value="">
+
+
+          <label id="PSRL">Paper Sheet Rate (per Kg)</label>
+          <div class="form-row">
+            <input type="number" id="rate" class="form-input" placeholder="Sheet rate in Rs/Kg" style="flex: 1;"
+              name="rate" value="">
+          </div>
+          <label id="SML" for="wgh">Selling Margin ( % )</label>
+          <div class="form-row">
+
+            <input type="number" id="margin" class="form-input" placeholder="0 %" style="flex: 1;" name="margin"
+              value="">
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-row">
+              <label id="WPBL" class="result" style="font-size:medium;">Weight/Box :&nbsp</label>
+              <label class="result" style="font-size:medium;font-weight:200;" id="wpb"> 0.00 g</label>
+            </div>
+            <div class="form-row">
+              <label id="CPBL" class="result" style="font-size:medium;">Cost/Box :&nbsp</label>
+              <label class="result" style="font-size:medium;font-weight:200;" id="cpb"> 0.00 INR</label>
+            </div>
+            <div class="form-row">
+              <label id="TOVL" class="result" style="font-size:medium;">Total Order Value :&nbsp</label>
+              <label class="result" style="font-size:medium; font-weight:200;" id="tv"> 0.00 INR</label>
+            </div>
+          </div>
+          <!-- Not to displayed to the user part of the code -->
+
+
+          <div style="display: none;">
+            <label for="wgh">Weight/Box (Kgs)</label>
+            <div class="form-row">
+
+              <input type="number" id="wgh" class="form-input" placeholder="0 Kgs" style="flex: 1;" name="wgh" value="">
+            </div>
+            <label for="box_rater">Cost per Box (INR)</label>
+            <div class="form-row">
+              <input type="number" name="box_rater" id="box_rater" class="form-input" placeholder="0 INR/box"
+                style="flex: 1;" value="">
+            </div>
+            <label for="price">Total Order Cost (INR)</label>
+            <textarea id="price" name="price" class="form-input" placeholder="0 Rs" value=""></textarea>
+
+
+          </div>
+
+          <center>
+            <h4 id="MFSL" style="padding-top: 1.5%;padding-bottom:0.5%;">Select Additional Details to be shared</h4>
+          </center>
+          <hr>
+          <hr>
+
+          <div class="form-row" style="display:flex;">
+
+            <div style="width: 33%;background-color:rgba(0, 0, 0, 0.112);padding:1%;display:flex;">
+              <div style="width: 80%;">
+                <label id="MGSMF">GSM Details</label>
+              </div>
+              <div style="width: 15%;">
+                <center>
+                  <input type="checkbox" name="MGSM" id="MGSM">
+                </center>
+              </div>
+
+
+            </div>
+
+
+            <div style="width: 33%;background-color:rgba(0, 0, 0, 0.112);padding:1%;display:flex;">
+              <div style="width: 80%;">
+                <label id="MPSCF">Paper Sheet Cost</label>
+              </div>
+              <div style="width: 15%;">
+                <center>
+                  <input type="checkbox" name="MPSC" id="MPSC">
+                </center>
+              </div>
+
+
+            </div>
+
+            <div style="width: 33%;background-color:rgba(0, 0, 0, 0.112);padding:1%;display:flex;">
+              <div style="width: 80%;">
+                <label id="MSMF">Selling Margin</label>
+              </div>
+              <div style="width: 15%;">
+                <center>
+                  <input type="checkbox" name="MSM" id="MSM">
+                </center>
+              </div>
+            </div>
+
+          </div>
+          <hr>
+          <hr>
+          <br>
+
+          <div style="margin-top: 2%;">
+            <label id="whatsappL" for="contact">Share on Whatsapp</label>
+            <div class="form-row" style="display:flex;">
+              <!-- <textarea id="contact" name="contact" class="form-input" placeholder="Phone Number / Email"
+                  value=""></textarea> -->
+              <a class="icn" style="margin-right: 6px; margin-left:5px;margin-top:3px;"><span><img class="icn_img"
+                    src="whatsapp.png" width="35px" alt=""></span></a>
+              <div style="width: 50px; margin-right:5px;"><input type="text" class="form-input" id="Phone_label"
+                  value="+91" readonly=""></div>
+
+              <input type="number" maxlength="10" id="phno" class="form-input" placeholder="Customer Whatsapp Number"
+                style="flex: 1;margin-right:8px;" name="phno" value="" />
+              <a id="whts" class="icon_btn" onclick="sendwhatsapp()"><span><img src="send (1).png" width="45px"
+                    alt=""></span></a>
+
+            </div>
+            <div style="width: 100%;text-align:center;">
+              <label id="seperator" style="font-size:small">OR</label>
+            </div>
+
+            <label id="emailL" for="contact">Share on Email</label>
+            <div class="form-row" style="display:flex;">
+              <!-- <textarea id="contact" name="contact" class="form-input" placeholder="Phone Number / Email"
+                  value=""></textarea> -->
+              <a class="icn"><span><img class="icn_img" src="email.gif" width="45px" alt=""></span></a>
+              <input type="text" id="mail" class="form-input" placeholder=" Customer Email Address"
+                style="flex: 1;margin-right:8px;" name="mail" value="">
+              <a id="eml" class="icon_btn" onclick="sendMail()"><span><img src="send (1).png" width="45px"
+                    alt=""></span></a>
+
+            </div>
+
+
+          </div>
+
+
+
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+  </form>
+
+  <div class="btns_wrap" style="padding: 5%;align-items:baseline; bottom: -170px; ">
+
+    <div class="common_btns form_2_btns" style="margin: auto; width:150px;z-index:-5;">
+      <button type="button" id="share" class="btn_back" onclick="share()">Share</button>
+
+    </div>
+
+  </div>
+  </div>
+
+  </div>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+  <nav class="navbar" style="height:fit-content;margin-top: 2.7%;">
+    <div class="container" style="height:fit-content;margin:auto;">
+      <button id="terms"
+        style="border:1px;background-color:transparent;padding:2%;color:var(--primary);margin:auto;text-align:center;"
+        onclick="toggleTandC()">By
+        using the calculator service or clicking "Accept," you confirm that you have read, understood, and agree to
+        be bound by these Terms and Conditions</button>
+
+
+    </div>
+
+  </nav>
+  <div id="T&C"
+    style="display:none;height:100%;width:100%;padding:3%;background-color:rgba(0, 0, 0, 0.305); backdrop-filter: blur(5px);z-index:5;position:absolute;top:0px;">
+    <div id="engterms" style="width: 80%;margin:auto;padding:4%;text-align:justify;background-color:whitesmoke;">
+      <center style="padding: 3%;">
+        <h3>Terms and Conditions for Use of the ecodibba Corrugated Box Rate Calculator</h3>
+      </center>
+      <p>Welcome to the Corrugated Box Rate Calculator provided by ecodibba.com . By accessing or using the calculator
+        available at <a href="https://calculator.ecodibba.com/" style="color: blue;">ecodibba.com</a>, you agree to be
+        bound by these Terms
+        and Conditions. Please read them carefully.</p>
+      <p>
+      <h4>1. Acceptance of Terms:</h4>By using our calculator, you agree to comply with and be bound by these Terms and
+      Conditions. If you do not agree to these terms, please do not use the calculator.</p>
+      <p>
+      <h4>2. Eligibility:</h4> The calculator is currently open for use by everyone. However, we reserve the right to
+      restrict usage in the future, which may include limiting access to verified vendors or implementing other
+      eligibility criteria as deemed necessary by ecodibba.</p>
+      <p>
+      <h4>3. User Data Collection:</h4> We collect and utilize data from users to enhance and improve the calculator.
+      This may include data related to your usage patterns, input details, and other relevant information. By using the
+      calculator, you consent to the collection, use, and storage of this data in accordance with our Privacy Policy.
+      </p>
+      <p>
+      <h4>4. Privacy Policy: </h4>Your privacy is important to us. Please review our Privacy Policy <a
+        href="https://ecodibba.com/privacy-policy">"https://ecodibba.com/privacy-policy"</a> to understand our practices
+      regarding the collection and handling of your data.</p>
+      <p>
+      <h4>5. Usage Restrictions:</h4> You agree not to misuse the calculator or use it for any unlawful purposes. You
+      shall not attempt to gain unauthorized access to any part of the calculator or its associated systems.</p>
+      <p>
+      <h4>6. Intellectual Property:</h4> The calculator, including its design, functionality and all associated
+      intellectual
+      property rights, is owned by ecodibba. You are granted a limited, non-exclusive, non-transferable, and revocable
+      license to use the calculator for its intended purpose</p>
+
+      <p>
+      <h4> 7. Modifications to the Calculator and Terms:</h4> We reserve the right to modify or discontinue the
+      calculator at any time without prior notice. We may also update these Terms and Conditions from time to time. Your
+      continued use of the calculator after any changes indicates your acceptance of the new terms.
+      </p>
+      <p>
+      <h4> 8. Disclaimer of Warranties: </h4>
+      The calculator is provided "as is" and "as available" without any warranties of any kind, express or implied. We
+      do not guarantee that the calculator will be error-free or uninterrupted.</p>
+
+      <p>
+      <h4>9. Limitation of Liability:</h4> In no event shall ecodibba be liable for any direct, indirect, incidental,
+      special, consequential, or punitive damages arising out of your use of the calculator.</p>
+      <p>
+      <h4>10. Governing Law:</h4> These Terms and Conditions shall be governed by and construed in accordance with the
+      laws of Delhi, India, without regard to its conflict of law principles.</p>
+
+      <p>
+      <h4>11. Contact Information: </h4>If you have any questions or concerns regarding these Terms and Conditions,
+      please contact us at <a href="ecodibba@gmail.com">ecodibba@gmail.com</a>.</p>
+
+      <br>
+      <center>
+        <p>By clicking "Accept" or using the calculator, you acknowledge that you have read, understood, and agree to be
+          bound by these Terms and Conditions.</p>
+      </center>
+      <center><button id="accept"
+          style="margin:2%;font-weight:bolder;padding:1%;width:21%;background-color: var(--primary);color:white;border-color:aliceblue;"
+          onclick="toggleTandC()">Accept</button>
+      </center>
+
+    </div>
+
+
+    <div id="hinditerms" style="width: 80%;margin:auto;padding:4%;text-align:justify;background-color:whitesmoke;">
+      <center style="padding: 3%;">
+        <h3>इकोडिब्बा नालीदार बॉक्स दर कैलकुलेटर के उपयोग के लिए नियम और शर्तें</h3>
+      </center>
+      <p>Ecodibba.com द्वारा उपलब्ध कराए गए नालीदार बॉक्स रेट कैलकुलेटर में आपका स्वागत है। कैलकुलेटर तक पहुंच कर या
+        उसका उपयोग करके
+        <a href='https://calculator.ecodibba.com/' style='color:blue;'>ecodibba.com</a> पर उपलब्ध है, आप सहमत हैं
+        इन शर्तों से बंधा हुआ
+        और शर्तें. इन्हे कृपया ध्यानपूर्वक पढ़े।
+      </p>
+      <p>
+      <h4>1. शर्तों की स्वीकृति:</h4>हमारे कैलकुलेटर का उपयोग करके, आप इन शर्तों का अनुपालन करने और उनसे बंधे होने के
+      लिए सहमत हैं और
+      स्थितियाँ। यदि आप इन शर्तों से सहमत नहीं हैं, तो कृपया कैलकुलेटर का उपयोग न करें।</p>
+      <p>
+      <h4>2. पात्रता:</h4> कैलकुलेटर वर्तमान में सभी के उपयोग के लिए खुला है। हालाँकि, हम इसका अधिकार सुरक्षित रखते हैं
+      भविष्य में उपयोग को प्रतिबंधित करें, जिसमें सत्यापित विक्रेताओं तक पहुंच सीमित करना या अन्य को लागू करना शामिल हो
+      सकता है
+      इकोडिब्बा द्वारा आवश्यक समझे गए पात्रता मानदंड।</p>
+      <p>
+      <h4>3. उपयोगकर्ता डेटा संग्रह:</h4> हम कैलकुलेटर को बढ़ाने और बेहतर बनाने के लिए उपयोगकर्ताओं से डेटा एकत्र करते
+      हैं और उसका उपयोग करते हैं।
+      इसमें आपके उपयोग पैटर्न, इनपुट विवरण और अन्य प्रासंगिक जानकारी से संबंधित डेटा शामिल हो सकता है। का उपयोग करके
+      कैलकुलेटर, आप हमारी गोपनीयता नीति के अनुसार इस डेटा के संग्रह, उपयोग और भंडारण के लिए सहमति देते हैं।
+      </p>
+      <p>
+      <h4>4. गोपनीयता नीति: </h4>आपकी गोपनीयता हमारे लिए महत्वपूर्ण है। कृपया हमारी गोपनीयता नीति की समीक्षा करें <a
+        href='https://ecodibba.com/privacy-policy'>'https://ecodibba.com/privacy-policy'</a> हमारी प्रथाओं को समझने के
+      लिए
+      आपके डेटा के संग्रहण और प्रबंधन के संबंध में।</p>
+      <p>
+      <h4>5. उपयोग प्रतिबंध:</h4> आप सहमत हैं कि कैलकुलेटर का दुरुपयोग नहीं करेंगे या किसी गैरकानूनी उद्देश्य के लिए
+      इसका उपयोग नहीं करेंगे। आप
+      कैलकुलेटर या उससे जुड़े सिस्टम के किसी भी हिस्से तक अनधिकृत पहुंच हासिल करने का प्रयास नहीं करेगा।</p>
+      <p>
+      <h4>6. बौद्धिक संपदा:</h4> कैलकुलेटर, जिसमें इसका डिज़ाइन, कार्यक्षमता और सभी संबद्ध चीजें शामिल हैं
+      बौद्धिक
+      संपत्ति अधिकार, इकोडिब्बा के स्वामित्व में है। आपको एक सीमित, गैर-अनन्य, गैर-हस्तांतरणीय और प्रतिसंहरणीय प्रदान
+      किया जाता है
+      अपने इच्छित उद्देश्य के लिए कैलकुलेटर का उपयोग करने का लाइसेंस
+      </p>
+
+      <p>
+      <h4> 7. कैलकुलेटर और शर्तों में संशोधन:</h4> हम संशोधित करने या बंद करने का अधिकार सुरक्षित रखते हैं
+      बिना किसी पूर्व सूचना के किसी भी समय कैलकुलेटर। हम समय-समय पर इन नियमों और शर्तों को अपडेट भी कर सकते हैं। आपका
+      किसी भी बदलाव के बाद कैलकुलेटर का निरंतर उपयोग नई शर्तों के प्रति आपकी स्वीकृति को दर्शाता है।
+      </p>
+      <p>
+      <h4> 8. वारंटी का अस्वीकरण: </h4>
+      कैलकुलेटर किसी भी प्रकार की व्यक्त या निहित वारंटी के बिना "जैसा है" और "जैसा उपलब्ध है" प्रदान किया जाता है। हम
+      यह गारंटी न दें कि कैलकुलेटर त्रुटि-मुक्त या निर्बाध होगा।
+      </p>
+
+      <p>
+      <h4>9. दायित्व की सीमा:</h4> किसी भी स्थिति में इकोडिब्बा किसी भी प्रत्यक्ष, अप्रत्यक्ष, आकस्मिक, के लिए उत्तरदायी
+      नहीं होगा।
+      कैलकुलेटर के आपके उपयोग से उत्पन्न होने वाली विशेष, परिणामी, या दंडात्मक क्षति।</p>
+      <p><h4>10. शासी कानून:</h4> ये नियम और शर्तें इसके अनुसार शासित और समझी जाएंगी
+        दिल्ली, भारत के कानून, कानूनी सिद्धांतों के टकराव की परवाह किए बिना।</p>
+
+      <p><h4>11. संपर्क जानकारी: </h4>यदि आपके पास इन नियमों और शर्तों के संबंध में कोई प्रश्न या चिंता है,
+        कृपया हमसे <a href="ecodebba@gmail.com">ecodibba@gmail.com</a> पर संपर्क करें।</p>
+
+      <br>
+      <center>
+        <p>"स्वीकार करें" पर क्लिक करके या कैलकुलेटर का उपयोग करके, आप स्वीकार करते हैं कि आपने पढ़ लिया है, समझ लिया है और इससे सहमत हैं
+          इन नियमों और शर्तों से बंधा हुआ।</p>
+      </center>
+      <center><button id="accept"
+          style="margin:2%;font-weight:bolder;padding:1%;width:21%;background-color: var(--primary);color:white;border-color:aliceblue;"
+          onclick="toggleTandC()">स्वीकृत</button>
+      </center>
+
+    </div>
+
+  </div>
+
+  <div class="popup" id="msgconfirm">
+    <div class="popupbox">
+      <center><img src="check.gif" alt="" width="20%"></center>
+      <center>
+        <p>Sent Successfully</p>
+      </center>
+      <center><button id="accept"
+          style="margin:2%;font-weight:bolder;padding:1%;width:21%;background-color: var(--primary);color:white;border-color:aliceblue;"
+          onclick="togglemsg()">OK</button>
+      </center>
+
+    </div>
+  </div>
+
+
+
+
+  <script type="text/javascript" src="scripts.js"></script>
+  <script type="text/javascript" src="hindi.js"></script>
+
+
+</body>
+
+
+</html>
